@@ -1,0 +1,141 @@
+/* entreneur Container */
+.entreneur {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, auto);
+  background-image: url(./assest/img/terain.png);
+  grid-template-areas:
+    '.    .    .     .    .'
+    'RW   .    ST    .    LW'
+    '.    CM3  CM2   CM1  .'
+    'RB   CB2  .    CB1  LB'
+    '.    .    GK    .    .';
+  justify-items: center;
+  align-items: center;
+}
+
+/* General styling for players */
+.player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  width: 80px;
+  height: 120px;
+
+  -webkit-filter: drop-shadow(10px 10px 10px #222);
+  filter: drop-shadow(10px 10px 10px #222);
+
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.player:hover {
+  cursor: pointer;
+  -webkit-filter: drop-shadow(10px 10px 10px #265e10);
+  filter: drop-shadow(10px 10px 10px #2e5211);
+  transform: scale(1.1);
+  transition: transform 0.5s ease-out, filter 0.5s ease-in-out;
+}
+.player p {
+  background: rgb(124, 124, 124);
+  background: linear-gradient(
+    0deg,
+    rgba(124, 124, 124, 0.14860556038821782) 0%,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(113, 113, 113, 0) 66%,
+    rgba(0, 0, 0, 0.47073441192883403) 100%
+  );
+}
+
+/* Specific positions */
+.GK {
+  grid-area: GK;
+}
+
+.CB1 {
+  grid-area: CB1;
+}
+
+.CB2 {
+  grid-area: CB2;
+}
+
+.LB {
+  grid-area: LB;
+}
+
+.RB {
+  grid-area: RB;
+}
+
+.CM1 {
+  grid-area: CM1;
+}
+
+.CM2 {
+  grid-area: CM2;
+}
+
+.CM3 {
+  grid-area: CM3;
+}
+
+.LW {
+  grid-area: LW;
+}
+
+.RW {
+  grid-area: RW;
+}
+
+.ST {
+  grid-area: ST;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .player {
+    font-size: 1rem;
+    
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .player {
+    width: 20px;
+    height: 80px;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 375px) {
+  .player {
+    width: 15px;
+    height: 60px;
+    font-size: 0.7rem;
+  }
+}
+
+
+@media screen and (min-width: 1023px) {
+  .player {
+    width: 80px;
+    height: 180px;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1439px) {
+  .player {
+    width: 60px;
+    height: 200px;
+    font-size: 1.5rem;
+  }
+}
+
+
+
+
