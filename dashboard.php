@@ -1,16 +1,5 @@
 <?php
-$data_server = "localhost";
-$data_user = "root";
-$data_pass = "haisenSQLBD@ORACLE8";
-$data_name = "fut_champions_ultimate_team";
-
-$conn = mysqli_connect($data_server, $data_user, $data_pass, $data_name);
-
-if ($conn) {
-    echo "Connected to database";
-} else {
-    echo "Not connected to database";
-}
+require './DB_conn.php';
 ?>
 
 <!DOCTYPE html>
@@ -205,19 +194,35 @@ if ($conn) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="border px-4 py-2">1</td>
-                                <td class="border px-4 py-2">FC Barcelona</td>
-                                <td class="border px-4 py-2"><img src="barcelona_logo.png" alt="FC Barcelona Logo" class="w-10 h-10"></td>
-                                <td class="border px-4 py-2">
-                                    <button class="text-blue-600 mr-4">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="text-red-600 ">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                            
+                            $sql = "SELECT * FROM club";
+                            $result = mysqli_query($conn, $sql);
+                        
+                            if ($result) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                    <tr>
+                                        <td class="border px-4 py-2"><?php echo $row['club_id'] ?></td>
+                                        <td class="border px-4 py-2"><?php echo $row['name'] ?></td>
+                                        <td class="border px-4 py-2"><img src="<?php echo $row['logo'] ?>" alt="FC Barcelona Logo" class="w-10 h-10"></td>
+                                        <td class="border px-4 py-2">
+                                            <button class="text-blue-600 mr-4">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button class="text-red-600 ">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    
+                            <?php
+                                }
+                            } else {
+                                echo 'error:' . mysqli_error($conn);
+                            }
+                            mysqli_close($conn);
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -230,12 +235,12 @@ if ($conn) {
             <div id="addClubModal" class="modalClub hidden  fixed inset-0 bg-stone-200 bg-opacity-50  backdrop-blur-sm flex justify-center items-center">
                 <div class="bg-stone-400 p-6 rounded-lg w-1/3 ">
                     <h2 class="text-2xl font-bold mb-4">Add New Club</h2>
-                    <form id="addClubForm">
+                    <form id="addClubForm" action="insertDB.php" method="post" enctype="multipart/form-data">
                         <label for="clubName" class="block text-sm font-semibold">Club Name</label>
                         <input type="text" id="clubName" name="clubName" placeholder="Enter club name" class="w-full p-2 border rounded mb-4">
 
                         <label for="clubLogo" class="block text-sm font-semibold">Club Logo URL</label>
-                        <input type="url" id="clubLogo" name="clubLogo" placeholder="Enter club logo" class="w-full p-2 border rounded mb-4">
+                        <input type="file" id="clubLogo" name="clubLogo" placeholder="Enter club logo" class="w-full p-2 border rounded mb-4">
 
                         <div class="flex justify-between mt-4">
                             <button type="button" id="closeClubModal" class="CancelClub border bg-red-800 text-white p-2 w-20 rounded-md hover:bg-stone-400 hover:text-red-800 duration-300 hover:font-bold">Cancel</button>
@@ -255,7 +260,7 @@ if ($conn) {
                         <input type="text" id="nationalityName" name="nationalityName" placeholder="Enter nationality name" class="w-full p-2 border rounded mb-4">
 
                         <label for="flagURL" class="block text-sm font-semibold">Flag URL</label>
-                        <input type="url" id="flagURL" name="flagURL" placeholder="Enter flag image URL" class="w-full p-2 border rounded mb-4">
+                        <input type="file" id="flagLogo" name="flagLogo" placeholder="Enter flag image URL" class="w-full p-2 border rounded mb-4">
 
                         <div class="flex justify-between mt-4">
                             <button type="button" id="closeNationalityModal" class="CancelNationality border bg-red-500 text-white p-2 w-20 rounded-md hover:bg-stone-400 hover:text-red-800 duration-300 hover:font-bold">Cancel</button>
