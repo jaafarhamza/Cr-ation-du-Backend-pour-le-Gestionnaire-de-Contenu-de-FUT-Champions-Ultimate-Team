@@ -49,6 +49,7 @@ require './DB_conn.php';
                             <tr class="bg-gray-200">
                                 <th class="px-4 py-2">Player ID</th>
                                 <th class="px-4 py-2">Name</th>
+                                <th class="px-4 py-2">photo</th>
                                 <th class="px-4 py-2">Position</th>
                                 <th class="px-4 py-2">Club</th>
                                 <th class="px-4 py-2">Nationality</th>
@@ -63,28 +64,45 @@ require './DB_conn.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="border px-4 py-2">1</td>
-                                <td class="border px-4 py-2">Lionel Messi</td>
-                                <td class="border px-4 py-2">RW</td>
-                                <td class="border px-4 py-2">FC Barcelona</td>
-                                <td class="border px-4 py-2">Argentina</td>
-                                <td class="border px-4 py-2">95</td>
-                                <td class="border px-4 py-2">92</td>
-                                <td class="border px-4 py-2">89</td>
-                                <td class="border px-4 py-2">91</td>
-                                <td class="border px-4 py-2">36</td>
-                                <td class="border px-4 py-2">65</td>
-                                <td class="border px-4 py-2">90</td>
-                                <td class="border px-4 py-2">
-                                    <button class="text-blue-600 mr-4 ">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="text-red-600 ">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                            $sql = 'SELECT players.player_id, players.name, players.photo, players.position, nationality.name as nationality_name, club.name as club_name, players.pace, players.shooting, players.passing, players.dribbling, players.defending, players.physical, players.rating 
+                            FROM players 
+                            join nationality on players.nationality_id = nationality.nationality_id 
+                            join club on players.club_id = club.club_id ';
+                            $result = mysqli_query($conn, $sql);
+
+                            if ($result) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                    <tr>
+                                        <td class="border px-4 py-2"><?= $row['player_id'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['name'] ?></td>
+                                        <td class="border px-4 py-2"><img src="<?= $row['photo'] ?>" alt="player image" class="w-10 h-10"></td>
+                                        <td class="border px-4 py-2"><?= $row['position'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['club_name'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['nationality_name'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['pace'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['shooting'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['passing'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['dribbling'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['defending'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['physical'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['rating'] ?></td>
+                                        <td class="border px-4 py-2">
+                                            <button class="text-blue-600 mr-4 ">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button class="text-red-600 ">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            } else {
+                                echo 'error:' . mysqli_error($conn);
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -102,6 +120,7 @@ require './DB_conn.php';
                             <tr class="bg-gray-200">
                                 <th class="px-4 py-2">Player ID</th>
                                 <th class="px-4 py-2">Name</th>
+                                <th class="px-4 py-2">photo</th>
                                 <th class="px-4 py-2">Position</th>
                                 <th class="px-4 py-2">Club</th>
                                 <th class="px-4 py-2">Nationality</th>
@@ -116,9 +135,11 @@ require './DB_conn.php';
                             </tr>
                         </thead>
                         <tbody>
+                            <?php?>
                             <tr>
                                 <td class="border px-4 py-2">1</td>
                                 <td class="border px-4 py-2">David De Gea</td>
+                                <td class="border px-4 py-2"><img src="" alt="photo GK" class="w-10 h-10"></td>
                                 <td class="border px-4 py-2">GK</td>
                                 <td class="border px-4 py-2">Manchester United</td>
                                 <td class="border px-4 py-2">Spain</td>
@@ -160,19 +181,32 @@ require './DB_conn.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="border px-4 py-2">1</td>
-                                <td class="border px-4 py-2">Spain</td>
-                                <td class="border px-4 py-2"><img src="spain_flag.png" alt="Spain Flag" class="w-10 h-10"></td>
-                                <td class="border px-4 py-2">
-                                    <button class="text-blue-600 mr-4 ">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="text-red-600 ">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                            $sql = "SELECT * from nationality";
+                            $result = mysqli_query($conn, $sql);
+
+                            if ($result) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                    <tr>
+                                        <td class="border px-4 py-2"><?= $row['nationality_id'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['name'] ?></td>
+                                        <td class="border px-4 py-2"><img src="<?= $row['flag'] ?>" alt="Spain Flag" class="w-10 h-10"></td>
+                                        <td class="border px-4 py-2">
+                                            <button class="text-blue-600 mr-4 ">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button class="text-red-600 ">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            } else {
+                                echo "eroor:" . mysqli_error($conn);
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -195,17 +229,16 @@ require './DB_conn.php';
                         </thead>
                         <tbody>
                             <?php
-                            
                             $sql = "SELECT * FROM club";
                             $result = mysqli_query($conn, $sql);
-                        
+
                             if ($result) {
                                 while ($row = mysqli_fetch_assoc($result)) {
                             ?>
                                     <tr>
-                                        <td class="border px-4 py-2"><?php echo $row['club_id'] ?></td>
-                                        <td class="border px-4 py-2"><?php echo $row['name'] ?></td>
-                                        <td class="border px-4 py-2"><img src="<?php echo $row['logo'] ?>" alt="FC Barcelona Logo" class="w-10 h-10"></td>
+                                        <td class="border px-4 py-2"><?= $row['club_id'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['name'] ?></td>
+                                        <td class="border px-4 py-2"><img src="<?= $row['logo'] ?>" alt="FC Barcelona Logo" class="w-10 h-10"></td>
                                         <td class="border px-4 py-2">
                                             <button class="text-blue-600 mr-4">
                                                 <i class="fas fa-pencil-alt"></i>
@@ -215,13 +248,13 @@ require './DB_conn.php';
                                             </button>
                                         </td>
                                     </tr>
-                                    
+
                             <?php
                                 }
                             } else {
                                 echo 'error:' . mysqli_error($conn);
                             }
-                            mysqli_close($conn);
+
                             ?>
                         </tbody>
                     </table>
@@ -239,7 +272,7 @@ require './DB_conn.php';
                         <label for="clubName" class="block text-sm font-semibold">Club Name</label>
                         <input type="text" id="clubName" name="clubName" placeholder="Enter club name" class="w-full p-2 border rounded mb-4">
 
-                        <label for="clubLogo" class="block text-sm font-semibold">Club Logo URL</label>
+                        <label for="clubLogo" class="block text-sm font-semibold">Club Logo</label>
                         <input type="file" id="clubLogo" name="clubLogo" placeholder="Enter club logo" class="w-full p-2 border rounded mb-4">
 
                         <div class="flex justify-between mt-4">
@@ -254,7 +287,7 @@ require './DB_conn.php';
             <div id="addNationalityModal" class="modalNationality hidden fixed inset-0 bg-stone-200 bg-opacity-50  backdrop-blur-sm flex justify-center items-center">
                 <div class="bg-stone-400 p-6 rounded-lg w-1/3">
                     <h2 class="text-2xl font-bold mb-4">Add New Nationality</h2>
-                    <form id="addNationalityForm">
+                    <form id="addNationalityForm" action="insertDB.php" method="post" enctype="multipart/form-data">
 
                         <label for="nationalityName" class="block text-sm font-semibold">Nationality Name</label>
                         <input type="text" id="nationalityName" name="nationalityName" placeholder="Enter nationality name" class="w-full p-2 border rounded mb-4">
@@ -274,7 +307,7 @@ require './DB_conn.php';
             <div id="addPlayerModal" class="modalPlayer hidden fixed inset-0 bg-stone-200 bg-opacity-50  backdrop-blur-sm flex items-center justify-center">
                 <div class="bg-stone-400 rounded-lg w-96 p-6">
                     <h2 class="text-2xl font-bold mb-4">Add Player</h2>
-                    <form id="playerForm">
+                    <form id="playerForm" action="insertDB.php" method="post" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label for="playerName" class="block text-sm font-medium">Player Name</label>
                             <input type="text" id="playerName" name="playerName" class="w-full border rounded px-3 py-2 mt-1" placeholder="Enter player name" />
@@ -292,14 +325,48 @@ require './DB_conn.php';
                                 <option value="RB">RB</option>
                             </select>
                         </div>
+                        <label for="playerPhoto" class="block text-sm font-semibold">player photo</label>
+                        <input type="file" id="playerPhoto" name="playerPhoto" placeholder="Enter de Photo player" class="w-full p-2 border rounded mb-4">
                         <div class="grid grid-cols-2 gap-2">
                             <div class="mb-4">
                                 <label for="playerClub" class="block text-sm font-medium">Club</label>
-                                <input type="text" id="playerClub" name="playerClub" class="w-full border rounded px-3 py-2 mt-1" placeholder="Enter player club" />
+                                <select name="playerClub" id="playerClub" class="w-full border rounded px-3 py-2 mt-1" required>
+                                    <?php
+                                    $sql = 'SELECT * from club';
+                                    $result = mysqli_query($conn, $sql);
+                                    if ($result) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                            <option value="<?= $row['club_id'] ?>">
+                                                <?= $row['name'] ?>
+                                            </option>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo 'error:' . mysqli_error($conn);
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="mb-4">
                                 <label for="playerNationality" class="block text-sm font-medium">Nationality</label>
-                                <input type="text" id="playerNationality" name="playerNationality" class="w-full border rounded px-3 py-2 mt-1" placeholder="Enter player nationality" />
+                                <select name="playerNationality" id="playerNationality" class="w-full border rounded px-3 py-2 mt-1" required>
+                                    <?php
+                                    $sql = 'SELECT * from nationality';
+                                    $result = mysqli_query($conn, $sql);
+                                    if ($result) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                            <option value="<?= $row['nationality_id'] ?>">
+                                                <?= $row['name'] ?>
+                                            </option>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo 'error:' . mysqli_error($conn);
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="mb-4">
                                 <label for="playerPace" class="block text-sm font-medium">Pace</label>
@@ -345,12 +412,44 @@ require './DB_conn.php';
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div class="mb-4">
-                                <label for="goalkeeperClub" class="block text-sm font-medium">Club</label>
-                                <input type="text" id="goalkeeperClub" name="goalkeeperClub" class="w-full border rounded px-3 py-2 mt-1" placeholder="Enter goalkeeper club" />
+                                <label for="playerClub" class="block text-sm font-medium">Club</label>
+                                <select name="playerClub" id="playerClub" class="w-full border rounded px-3 py-2 mt-1" required>
+                                    <?php
+                                    $sql = 'SELECT * from club';
+                                    $result = mysqli_query($conn, $sql);
+                                    if ($result) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                            <option value="<?= $row['club_id'] ?>">
+                                                <?= $row['name'] ?>
+                                            </option>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo 'error:' . mysqli_error($conn);
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="mb-4">
-                                <label for="goalkeeperNationality" class="block text-sm font-medium">Nationality</label>
-                                <input type="text" id="goalkeeperNationality" name="goalkeeperNationality" class="w-full border rounded px-3 py-2 mt-1" placeholder="Enter goalkeeper nationality" />
+                                <label for="playerNationality" class="block text-sm font-medium">Nationality</label>
+                                <select name="playerNationality" id="playerNationality" class="w-full border rounded px-3 py-2 mt-1" required>
+                                    <?php
+                                    $sql = 'SELECT * from nationality';
+                                    $result = mysqli_query($conn, $sql);
+                                    if ($result) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                            <option value="<?= $row['nationality_id'] ?>">
+                                                <?= $row['name'] ?>
+                                            </option>
+                                    <?php
+                                        }
+                                    } else {
+                                        echo 'error:' . mysqli_error($conn);
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
@@ -389,7 +488,12 @@ require './DB_conn.php';
 
         </main>
     </div>
-    <script src="/script_dashboard.js"></script>
+    <!-- <script src="/script_dashboard.js?php echo time(); ?>"></script> -->
+    <!-- <script src="http://localhost/script_dashboard.js"></script> -->
+    <script src="./script/script_dashboard.js"></script>
 </body>
+<?php
+mysqli_close($conn);
+?>
 
 </html>

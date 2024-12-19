@@ -53,4 +53,8 @@ CREATE TABLE Goalkeeper (
     FOREIGN KEY (club_id) REFERENCES Club(club_id)
 );
 
+alter table players
+add COLUMN photo VARCHAR(255) after name
 
+alter table goalkeeper
+add COLUMN photo VARCHAR(255) after name

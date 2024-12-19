@@ -12,4 +12,3 @@ if ($conn) {
     echo "Not connected to database";
 }
 
-?>

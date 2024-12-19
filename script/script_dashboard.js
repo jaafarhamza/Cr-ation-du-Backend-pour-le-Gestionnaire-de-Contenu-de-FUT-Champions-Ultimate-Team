@@ -1,3 +1,4 @@
+console.log('script dashboard access');
 function show(ids) {
   const div = ['players', 'nationality', 'club', 'GKs'];
   div.forEach((id) => {
@@ -9,6 +10,7 @@ function show(ids) {
 }
 
 const addClub = document.querySelector('.add_club');
+console.log(addClub);
 const modalClub = document.querySelector('.modalClub');
 const CancelClub = document.querySelector('.CancelClub');
 const addClubForm = document.querySelector('#addClubForm');
