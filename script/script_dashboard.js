@@ -64,3 +64,17 @@ cancelGKModal.addEventListener('click', () => {
   modalGK.classList.add('hidden');
   addGKModal.reset();
 });
+
+// function deleteRecord(id, table, idColumn) {
+//   if (confirm('Are you sure you want to delete this record?')) {
+//     $.ajax({
+//       url: 'delete.php',
+//       type: 'POST',
+//       data: { id: id, table: table, idColumn: idColumn },
+//       success: function (response) {
+//         alert(response);
+//         $('#row-' + id).remove();
+//       },
+//     });
+//   }
+// }

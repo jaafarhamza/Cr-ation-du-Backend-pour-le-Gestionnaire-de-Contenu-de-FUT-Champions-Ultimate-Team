@@ -92,9 +92,11 @@ require './DB_conn.php';
                                             <button class="text-blue-600 mr-4 ">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
-                                            <button class="text-red-600 ">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            <span>
+                                                <a href="delete.php?id=<?= $row['player_id']; ?>&table=players&idColumn=player_id" class="btn-delete" onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?')">
+                                                    <i class='fa-solid fa-trash-can cursor-pointer text-red-600'></i>
+                                                </a>
+                                            </span>
                                         </td>
                                     </tr>
                             <?php
@@ -146,26 +148,29 @@ require './DB_conn.php';
                                 while ($row = mysqli_fetch_assoc($result)) {
                             ?>
                                     <tr>
-                                        <td class="border px-4 py-2"><?= $row['player_id'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['name'] ?></td>
-                                        <td class="border px-4 py-2"><img src="<?= $row['photo'] ?>" alt="photo GK" class="w-10 h-10"></td>
-                                        <td class="border px-4 py-2"><?= $row['position'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['club_name'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['nationality_name'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['diving'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['handling'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['kicking'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['reflexes'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['speed'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['positioning'] ?></td>
-                                        <td class="border px-4 py-2"><?= $row['rating'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['player_id']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['name']; ?></td>
+                                        <td class="border px-4 py-2"><img src="<?= $row['photo']; ?>" alt="photo GK" class="w-10 h-10"></td>
+                                        <td class="border px-4 py-2"><?= $row['position']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['club_name']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['nationality_name']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['diving']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['handling']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['kicking']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['reflexes']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['speed']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['positioning']; ?></td>
+                                        <td class="border px-4 py-2"><?= $row['rating']; ?></td>
                                         <td class="border px-4 py-2">
-                                            <button class="text-blue-600 mr-4">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                            <button class="text-red-600">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            <span>
+                                                <a href="delete.php?id=<?= $row['player_id']; ?>&table=goalkeeper&idColumn=player_id"><i
+                                                        class='fa-solid fa-pen-to-square cursor-pointer text-green-600'></i></a>
+                                            </span>
+                                            <span>
+                                                <a href="delete.php?id=<?= $row['player_id']; ?>&table=goalkeeper&idColumn=player_id" class="btn-delete" onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?')">
+                                                    <i class='fa-solid fa-trash-can cursor-pointer text-red-600'></i>
+                                                </a>
+                                            </span>
                                         </td>
                                     </tr>
                             <?php
@@ -211,9 +216,11 @@ require './DB_conn.php';
                                             <button class="text-blue-600 mr-4 ">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
-                                            <button class="text-red-600 ">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            <span>
+                                                <a href="delete.php?id=<?= $row['nationality_id']; ?>&table=nationality&idColumn=nationality_id" class="btn-delete" onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?')">
+                                                    <i class='fa-solid fa-trash-can cursor-pointer text-red-600'></i>
+                                                </a>
+                                            </span>
                                         </td>
                                     </tr>
                             <?php
@@ -257,9 +264,11 @@ require './DB_conn.php';
                                             <button class="text-blue-600 mr-4">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </button>
-                                            <button class="text-red-600 ">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            <span>
+                                                <a href="delete.php?id=<?= $row['club_id']; ?>&table=club&idColumn=club_id" class="btn-delete" onclick="return confirm('Voulez-vous vraiment supprimer cet étudiant ?')">
+                                                    <i class='fa-solid fa-trash-can cursor-pointer text-red-600'></i>
+                                                </a>
+                                            </span>
                                         </td>
                                     </tr>
 

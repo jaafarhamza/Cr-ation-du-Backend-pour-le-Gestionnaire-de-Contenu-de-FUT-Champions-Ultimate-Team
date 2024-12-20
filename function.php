@@ -44,4 +44,21 @@ function insertDB($conn, $table, $data, $files = null)
 ?>
 
 <!-- function delete  -->
+<?php
+function deleteRecord($conn, $table, $idColumn, $id)
+{
 
+    $id = valid($conn, $id);
+
+    $sql = "DELETE FROM `$table` WHERE `$idColumn` = '$id'";
+
+    if (mysqli_query($conn, $sql)) {
+        echo 'Record deleted successfully';
+    } else {
+        echo 'Error deleting record: ' . mysqli_error($conn);
+    }
+    mysqli_close($conn);
+
+}
+
+?>
