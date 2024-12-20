@@ -135,30 +135,45 @@ require './DB_conn.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php?>
-                            <tr>
-                                <td class="border px-4 py-2">1</td>
-                                <td class="border px-4 py-2">David De Gea</td>
-                                <td class="border px-4 py-2"><img src="" alt="photo GK" class="w-10 h-10"></td>
-                                <td class="border px-4 py-2">GK</td>
-                                <td class="border px-4 py-2">Manchester United</td>
-                                <td class="border px-4 py-2">Spain</td>
-                                <td class="border px-4 py-2">90</td>
-                                <td class="border px-4 py-2">85</td>
-                                <td class="border px-4 py-2">75</td>
-                                <td class="border px-4 py-2">92</td>
-                                <td class="border px-4 py-2">80</td>
-                                <td class="border px-4 py-2">88</td>
-                                <td class="border px-4 py-2">85</td>
-                                <td class="border px-4 py-2">
-                                    <button class="text-blue-600 mr-4">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="text-red-600">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                            $sql = 'SELECT goalkeeper.player_id, goalkeeper.name, goalkeeper.photo, goalkeeper.position, nationality.name as nationality_name, club.name as club_name, goalkeeper.diving, goalkeeper.handling, goalkeeper.kicking, goalkeeper.reflexes, goalkeeper.speed, goalkeeper.positioning, goalkeeper.rating 
+                            FROM goalkeeper 
+                            join nationality on goalkeeper.nationality_id = nationality.nationality_id 
+                            join club on goalkeeper.club_id = club.club_id ';
+                            $result = mysqli_query($conn, $sql);
+
+                            if ($result) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                    <tr>
+                                        <td class="border px-4 py-2"><?= $row['player_id'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['name'] ?></td>
+                                        <td class="border px-4 py-2"><img src="<?= $row['photo'] ?>" alt="photo GK" class="w-10 h-10"></td>
+                                        <td class="border px-4 py-2"><?= $row['position'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['club_name'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['nationality_name'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['diving'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['handling'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['kicking'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['reflexes'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['speed'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['positioning'] ?></td>
+                                        <td class="border px-4 py-2"><?= $row['rating'] ?></td>
+                                        <td class="border px-4 py-2">
+                                            <button class="text-blue-600 mr-4">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button class="text-red-600">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                            <?php
+                                }
+                            } else {
+                                echo 'error:' . mysqli_error($conn);
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -214,7 +229,6 @@ require './DB_conn.php';
                     <button type="button" name="add_nationality" class="add_nationality border bg-green-500 rounded-xl pl-2 pr-2 p-1  font-bold hover:text-stone-200 duration-500 ">ADD nationality</button>
                 </div>
             </section>
-
             <section id="club" class="club mb-8 hidden">
                 <h2 class="text-2xl font-bold mb-4">Club</h2>
                 <div class="overflow-x-auto bg-white shadow rounded-lg">
@@ -405,11 +419,13 @@ require './DB_conn.php';
             <div id="addGKModal" class="modalGK hidden fixed inset-0 bg-stone-200 bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
                 <div class="bg-stone-400 rounded-lg w-96 p-6">
                     <h2 class="text-2xl font-bold mb-4">Add Goalkeeper</h2>
-                    <form id="goalkeeperForm">
+                    <form id="goalkeeperForm" action="insertDB.php" method="post" enctype="multipart/form-data">
                         <div class="mb-4">
                             <label for="goalkeeperName" class="block text-sm font-medium">Goalkeeper Name</label>
                             <input type="text" id="goalkeeperName" name="goalkeeperName" class="w-full border rounded px-3 py-2 mt-1" placeholder="Enter goalkeeper name" />
                         </div>
+                        <label for="GKPhoto" class="block text-sm font-semibold">player photo</label>
+                        <input type="file" id="GKPhoto" name="GKPhoto" placeholder="Enter de GK player" class="w-full p-2 border rounded mb-4">
                         <div class="grid grid-cols-2 gap-2">
                             <div class="mb-4">
                                 <label for="playerClub" class="block text-sm font-medium">Club</label>

@@ -7,7 +7,7 @@ require './function.php'
 // add data nationality
 if (isset($_POST['saveNationality'])) {
 
-    $nation_name = valid($_POST['nationalityName']);
+    $nation_name = valid($conn, $_POST['nationalityName']);
 
     $upload_image = 'uploads/';
 
@@ -33,7 +33,7 @@ if (isset($_POST['saveNationality'])) {
 // add data club
 if (isset($_POST['saveClub'])) {
 
-    $club_name = valid($_POST['clubName']);
+    $club_name = valid($conn, $_POST['clubName']);
 
     $upload_image = 'uploads/';
 
@@ -58,16 +58,16 @@ if (isset($_POST['saveClub'])) {
 <?php
 // add data player
 if (isset($_POST['savePlayer'])) {
-    $palyer_name = valid($_POST['playerName']);
-    $position = valid($_POST['playerPosition']);
-    $nation = valid($_POST['playerNationality']);
-    $club = valid($_POST['playerClub']);
-    $pace = valid($_POST['playerPace']);
-    $shooting = valid($_POST['playerShooting']);
-    $passing = valid($_POST['playerPassing']);
-    $dribbling = valid($_POST['playerDribbling']);
-    $defending = valid($_POST['playerDefending']);
-    $physical = valid($_POST['playerPhysical']);
+    $palyer_name = valid($conn, $_POST['playerName']);
+    $position = valid($conn, $_POST['playerPosition']);
+    $nation = valid($conn, $_POST['playerNationality']);
+    $club = valid($conn, $_POST['playerClub']);
+    $pace = valid($conn, $_POST['playerPace']);
+    $shooting = valid($conn, $_POST['playerShooting']);
+    $passing = valid($conn, $_POST['playerPassing']);
+    $dribbling = valid($conn, $_POST['playerDribbling']);
+    $defending = valid($conn, $_POST['playerDefending']);
+    $physical = valid($conn, $_POST['playerPhysical']);
 
     $upload_image = 'uploads/';
 
@@ -90,6 +90,31 @@ if (isset($_POST['savePlayer'])) {
 ?>
 
 <?php
+// add data GKs
+if (isset($_POST['saveGoalkeeper'])) {
+
+    $data = [
+        'name' => valid($conn, $_POST['goalkeeperName']),
+        'club_id' => valid($conn, $_POST['playerClub']),
+        'nationality_id' => valid($conn, $_POST['playerNationality']),
+        'reflexes' => valid($conn, $_POST['goalkeeperReflexes']),
+        'diving' => valid($conn, $_POST['goalkeeperDiving']),
+        'handling' => valid($conn, $_POST['goalkeeperHandling']),
+        'kicking' => valid($conn, $_POST['goalkeeperKicking']),
+        'Positioning' => valid($conn, $_POST['goalkeeperPositioning']),
+        'speed' => valid($conn, $_POST['goalkeeperPhysical']),
+    ];
+
+    $files = [
+        'photo' => $_FILES['GKPhoto']
+    ];
+
+    if (insertDB($conn, 'goalkeeper', $data, $files)) {
+        echo "Goalkeeper added ";
+    } else {
+        echo "Error adding goalkeeper";
+    }
+}
 
 ?>
 
